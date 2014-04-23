@@ -1,5 +1,6 @@
 package com.peterfranza.stackserver.api;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -11,6 +12,12 @@ public class SubmitStackTrace {
 	@POST
 	@RequiresAuthentication
 	public String submitNewStackTrace() {
+		return "OK";
+	}
+	
+	@GET
+	@RequiresAuthentication
+	public String submitNewStackTraceGet() {
 		return "OK";
 	}
 	
