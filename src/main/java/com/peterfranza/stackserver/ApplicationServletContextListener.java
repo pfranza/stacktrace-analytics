@@ -1,5 +1,8 @@
 package com.peterfranza.stackserver;
 
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.any;
+
 import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.Guice;
@@ -7,6 +10,7 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.peterfranza.stackserver.api.SubmitStackTrace;
+import com.peterfranza.stackserver.security.RequiresAuthentication;
 import com.peterfranza.stackserver.security.SecurityInterceptor;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
@@ -18,6 +22,7 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 	private ServletModule module = new JerseyServletModule(){
 		@Override
 		protected void configureServlets() {
+			bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
 			
 			bind(SubmitStackTrace.class);
 			
