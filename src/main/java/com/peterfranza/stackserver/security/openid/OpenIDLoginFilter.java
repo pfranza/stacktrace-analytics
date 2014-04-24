@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 @Singleton
 public class OpenIDLoginFilter implements Filter {
 
+	private String endpoint = "https://www.google.com/accounts/o8/id";
+	
 	@Override
 	public void destroy() {}
 
@@ -27,6 +29,7 @@ public class OpenIDLoginFilter implements Filter {
 		HttpSession s = request.getSession(true);
 		if(s.getAttribute("OpenIDAuthorizationID") == null) {
 			s.setAttribute("OrigionalRequest", getFullURL(request));
+			s.setAttribute("OpenIDEndpoint", endpoint);
 			response.sendRedirect("/login");
 		} else {
 			arg2.doFilter(arg0, arg1);

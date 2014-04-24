@@ -28,7 +28,6 @@ public class OpenIDRequestServlet extends HttpServlet {
 	@Inject
 	ConsumerManager manager;
 	
-	private String endpoint = "https://www.google.com/accounts/o8/id";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -44,7 +43,7 @@ public class OpenIDRequestServlet extends HttpServlet {
             String returnToUrl = OpenIDLoginFilter.getFullURL(req).replace("/login", "/loginresponse");
 
             // perform discovery on the user-supplied identifier
-            List<?> discoveries = manager.discover(endpoint);
+            List<?> discoveries = manager.discover(req.getSession(true).getAttribute("OpenIDEndpoint").toString());
 
             // attempt to associate with the OpenID provider
             // and retrieve one service endpoint for authentication
