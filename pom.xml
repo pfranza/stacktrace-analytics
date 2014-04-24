@@ -67,6 +67,11 @@
 			<version>4.0-beta</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-persist</artifactId>
+			<version>4.0-beta</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>LATEST</version>
@@ -84,11 +89,24 @@
 			<version>LATEST</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jndi</artifactId>
+			<version>LATEST</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-plus</artifactId>
+			<version>LATEST</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>1.8.0.10</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -119,6 +137,13 @@
 			<artifactId>openid4java</artifactId>
 			<version>LATEST</version>
 		</dependency>
+		
+		<dependency>
+		<groupId>org.liquibase</groupId>
+	<artifactId>liquibase-core</artifactId>
+	<version>LATEST</version>
+</dependency>
+            
 		
 	</dependencies>
 
@@ -174,8 +199,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>org.eclipse.jetty, org.eclipse.jetty.orbit,
-								javax.servlet</includeGroupIds>
+							<includeGroupIds>org.eclipse.jetty, hsqldb, javax.servlet</includeGroupIds>
 							<includeScope>provided</includeScope>
 							<excludes>*, about_files/*, META-INF/*</excludes>
 							<outputDirectory>

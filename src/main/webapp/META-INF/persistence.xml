@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+	<!-- A JPA Persistence Unit -->
+	<persistence-unit name="InMemoryData">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>java:/comp/env/jdbc/default</non-jta-data-source>
+		
+		
+		<!-- JPA entities must be registered here -->
+		<class>com.peterfranza.stackserver.data.model.User</class>
+
+		
+		<shared-cache-mode>ALL</shared-cache-mode>		
+		<properties>
+         	<property name="hibernate.hbm2ddl.auto" value="validate"/>
+         	<property name="hibernate.show_sql" value="false"/>  
+            
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <property name="hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+            <property name="hibernate.cache.default_cache_concurrency_strategy" value="read-write" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

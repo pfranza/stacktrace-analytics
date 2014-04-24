@@ -7,6 +7,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.peterfranza.stackserver.api.SubmitStackTrace;
@@ -23,14 +24,13 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 	private ServletModule module = new JerseyServletModule(){
 		@Override
 		protected void configureServlets() {
+			install(new JpaPersistModule("InMemoryData"));
 			install(new OpenIDLoginModule());
 			bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
 			
 			bind(SubmitStackTrace.class);
 			
-			serve("/api/*").with(GuiceContainer.class);
-			
-			
+			serve("/api/*").with(GuiceContainer.class);			
 		}
 	};
 	
