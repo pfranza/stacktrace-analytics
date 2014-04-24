@@ -3,10 +3,6 @@ package com.peterfranza.stackserver;
 import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
 
-import javax.servlet.ServletContextEvent;
-
-import liquibase.integration.servlet.LiquibaseServletListener;
-
 import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.Guice;
