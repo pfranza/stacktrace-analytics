@@ -28,7 +28,7 @@
 	</context-param>
 
 	<listener>
-		<listener-class>com.peterfranza.stackserver.LiquibaseServletListenerAdapter</listener-class>
+		<listener-class>liquibase.integration.servlet.LiquibaseServletListener</listener-class>
 	</listener>
 
 	<listener>
