@@ -1,0 +1,18 @@
+<module rename-to='stackserverui'>
+  <inherits name="com.google.gwt.user.User"/>
+  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+  
+  <inherits name="com.google.gwt.logging.Logging"/>
+  <inherits name="com.google.gwt.inject.Inject" />
+  <inherits name='net.customware.gwt.dispatch.Dispatch' />
+  <inherits name="com.google.gwt.user.UserAgent" />
+  <inherits name="com.google.gwt.activity.Activity" />
+  <inherits name="com.google.gwt.place.Place" />
+  <inherits name="com.google.gwt.xml.XML" />
+  
+  
+  <entry-point class="com.peterfranza.stackserver.ui.client.StackServerEntryPoint"/>
+  
+  <source path='client' />
+  <source path='shared' />
+</module>

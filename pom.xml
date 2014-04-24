@@ -144,6 +144,28 @@
 			<version>3.0.8</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>LATEST</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>LATEST</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.customware.gwt.dispatch</groupId>
+			<artifactId>gwt-dispatch</artifactId>
+			<version>LATEST</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 
 	</dependencies>
 
@@ -151,20 +173,21 @@
 		<finalName>stackanalytics</finalName>
 		<plugins>
 
-          <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                  <filesets>
-                    <fileset>   
-                     <directory>${project.build.directory}/generated-sources/</directory>                     
-                      <includes>
-                        <include>**/*_.java</include>                       
-                      </includes>                     
-                    </fileset>
-                  </filesets>
-                </configuration>
-            </plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${project.build.directory}/generated-sources/</directory>
+							<includes>
+								<include>**/*_.java</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
@@ -190,6 +213,24 @@
 						<version>4.3.4.Final</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>generateAsync</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<runTarget>com.peterfranza.stackserver.ui.client.StackServer/index.html</runTarget>
+					<draftCompile>false</draftCompile>
+					<optimizationLevel>1</optimizationLevel>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -226,7 +267,7 @@
 							<goal>run</goal>
 						</goals>
 					</execution>
-				</executions>n
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
