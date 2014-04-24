@@ -15,10 +15,4 @@ public class SubmitStackTrace {
 		return "OK";
 	}
 	
-	@GET
-	@RequiresAuthentication
-	public String submitNewStackTraceGet() {
-		return "OK";
-	}
-	
 }
