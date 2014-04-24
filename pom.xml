@@ -226,7 +226,7 @@
 							<goal>run</goal>
 						</goals>
 					</execution>
-				</executions>
+				</executions>n
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
