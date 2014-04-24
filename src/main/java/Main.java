@@ -2,13 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.security.ProtectionDomain;
-import java.util.logging.Level;
-
-import javax.naming.Binding;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
 
 import org.eclipse.jetty.jndi.InitialContextFactory;
 import org.eclipse.jetty.server.Server;
@@ -40,10 +33,7 @@ public class Main {
         if (home.length() != 0) {
                 webapp.setTempDirectory(new File(home));
         }
-        
-        
-        
-        
+  
         webapp.setWar(location.toExternalForm());
         server.setHandler(webapp);
         
@@ -51,23 +41,4 @@ public class Main {
         server.join();
 	}
 	
-	private static final void listContext(Context ctx, String indent) {
-		try {
-			NamingEnumeration<?> list = ctx.listBindings("");
-			while (list.hasMore()) {
-				Binding item = (Binding) list.next();
-				String className = item.getClassName();
-				String name = item.getName();
-				//		       logger.log(Level.INFO, indent + className + " " + name);
-				System.out.println(indent + className + " " + name);
-				Object o = item.getObject();
-				if (o instanceof javax.naming.Context) {
-					listContext((Context) o, indent + " ");
-				}
-			}
-		} catch (NamingException ex) {
-			System.err.println(ex.getMessage());
-//			logger.log(Level.WARNING, "JNDI failure: ", ex);
-		}
-	}
 }

@@ -137,14 +137,14 @@
 			<artifactId>openid4java</artifactId>
 			<version>LATEST</version>
 		</dependency>
-		
+
 		<dependency>
-		<groupId>org.liquibase</groupId>
-	<artifactId>liquibase-core</artifactId>
-	<version>LATEST</version>
-</dependency>
-            
-		
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.0.8</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

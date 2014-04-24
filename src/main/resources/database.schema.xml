@@ -4,7 +4,7 @@
 	
 	<changeSet author="pfranza" id="1">
         <createTable tableName="serverusers">
-            <column name="id" type="VARCHAR92550">
+            <column name="id" type="VARCHAR(255)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="serverusers_pkey"/>
             </column>
             <column name="emailaddress" type="VARCHAR(255)"/>
