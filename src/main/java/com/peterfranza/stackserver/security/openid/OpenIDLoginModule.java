@@ -12,7 +12,7 @@ public class OpenIDLoginModule extends ServletModule {
 	protected void configureServlets() {
 		super.configureServlets();
 		
-		filter("/s/*").through(OpenIDLoginFilter.class);
+		filter("/stackserverui/dispatch", "/", "/index.html").through(OpenIDLoginFilter.class);
 		serve("/login").with(OpenIDRequestServlet.class);
 		serve("/loginresponse").with(OpenIDResponseServlet.class);
 		
