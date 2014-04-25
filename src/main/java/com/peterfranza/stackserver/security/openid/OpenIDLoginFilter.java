@@ -2,6 +2,7 @@ package com.peterfranza.stackserver.security.openid;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,10 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.peterfranza.stackserver.data.UserDataManager;
+
 @Singleton
 public class OpenIDLoginFilter implements Filter {
 
 	private String endpoint = "https://www.google.com/accounts/o8/id";
+	
+	@Inject
+	UserDataManager userManager;
 	
 	@Override
 	public void destroy() {}
@@ -24,6 +30,12 @@ public class OpenIDLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
+		
+		if(userManager.getUserCount() == 0) {
+			arg2.doFilter(arg0, arg1);
+			return;
+		}
+		
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
 		HttpSession s = request.getSession(true);

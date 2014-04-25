@@ -1,13 +1,20 @@
 package com.peterfranza.stackserver.data.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class User {
 
 	@Id
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
+	
+	private String authorizationId;
 	
 	private String emailAddress;
 
@@ -25,6 +32,14 @@ public class User {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+	
+	public String getAuthorizationId() {
+		return authorizationId;
+	}
+	
+	public void setAuthorizationId(String authorizationId) {
+		this.authorizationId = authorizationId;
 	}
 	
 	

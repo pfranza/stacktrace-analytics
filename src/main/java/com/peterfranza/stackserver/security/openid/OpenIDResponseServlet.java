@@ -29,6 +29,8 @@ import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.message.sreg.SRegMessage;
 import org.openid4java.message.sreg.SRegResponse;
 
+import com.peterfranza.stackserver.data.UserDataManager;
+
 @Singleton
 public class OpenIDResponseServlet extends HttpServlet {
 
@@ -40,6 +42,9 @@ public class OpenIDResponseServlet extends HttpServlet {
 	@Inject
 	ConsumerManager manager;
 	
+	@Inject
+	UserDataManager userManager;
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -48,9 +53,15 @@ public class OpenIDResponseServlet extends HttpServlet {
 		if (identifier == null) {
 			resp.sendRedirect("/login");
 		} else {
-			HttpSession s = request.getSession(true);			
-			s.setAttribute("OpenIDAuthorizationID", identifier.getIdentifier());
-			resp.sendRedirect(s.getAttribute("OrigionalRequest").toString());
+			String email = ((Map<String,String>)request.getAttribute("attributes")).get("email");
+			if(userManager.isUserAuthorized(email)) {
+				HttpSession s = request.getSession(true);			
+				s.setAttribute("OpenIDAuthorizationID", identifier.getIdentifier());
+				userManager.setUserAuthorizatonId(email, identifier.getIdentifier());
+				resp.sendRedirect(s.getAttribute("OrigionalRequest").toString());
+			} else {
+				resp.sendError(403);
+			}
 		}
 		
 		
