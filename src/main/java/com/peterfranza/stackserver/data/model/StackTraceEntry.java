@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,12 +19,13 @@ public class StackTraceEntry {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
-	private Date timestamp;
+	private Date timeOccured;
 	
 	private String applicationId;
 	
 	private String version;
 	
+	@ElementCollection
 	private List<String> fingerprints = new ArrayList<String>();
 	
 	private String raw;

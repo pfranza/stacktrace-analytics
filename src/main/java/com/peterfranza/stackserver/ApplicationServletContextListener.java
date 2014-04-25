@@ -3,10 +3,14 @@ package com.peterfranza.stackserver;
 import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
 
+import javax.naming.InitialContext;
+
 import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
+import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
@@ -26,12 +30,16 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 	private ServletModule module = new JerseyServletModule(){
 		@Override
 		protected void configureServlets() {
-			install(new JpaPersistModule("InMemoryData"));
-			install(new OpenIDLoginModule());
+			
+			install(new JpaPersistModule("ApplicationData"));
+
+			bind(SubmitStackTrace.class);
+			
+			filter("/*").through(PersistFilter.class);
+			
 			bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
 			bind(ApplicationDefinition.class).toProvider(ApplicationDefinitionFactory.class);
-			
-			bind(SubmitStackTrace.class);
+			install(new OpenIDLoginModule());
 			
 			serve("/api/*").with(GuiceContainer.class);			
 		}
@@ -39,7 +47,7 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 	
 	@Override
 	protected Injector getInjector() {
-		Injector i = Guice.createInjector(module);
+		Injector i = Guice.createInjector(Stage.PRODUCTION, module);
 		i.injectMembers(interceptor);
 		return i;
 	}

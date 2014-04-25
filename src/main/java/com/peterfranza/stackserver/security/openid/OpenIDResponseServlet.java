@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class OpenIDResponseServlet extends HttpServlet {
 	ConsumerManager manager;
 	
 	@Inject
-	UserDataManager userManager;
+	Provider<UserDataManager> userManager;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse resp)
@@ -54,10 +55,10 @@ public class OpenIDResponseServlet extends HttpServlet {
 			resp.sendRedirect("/login");
 		} else {
 			String email = ((Map<String,String>)request.getAttribute("attributes")).get("email");
-			if(userManager.isUserAuthorized(email)) {
+			if(userManager.get().isUserAuthorized(email)) {
 				HttpSession s = request.getSession(true);			
 				s.setAttribute("OpenIDAuthorizationID", identifier.getIdentifier());
-				userManager.setUserAuthorizatonId(email, identifier.getIdentifier());
+				userManager.get().setUserAuthorizatonId(email, identifier.getIdentifier());
 				resp.sendRedirect(s.getAttribute("OrigionalRequest").toString());
 			} else {
 				resp.sendError(403);

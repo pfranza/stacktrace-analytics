@@ -3,6 +3,7 @@ package com.peterfranza.stackserver.security.openid;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,7 +23,7 @@ public class OpenIDLoginFilter implements Filter {
 	private String endpoint = "https://www.google.com/accounts/o8/id";
 	
 	@Inject
-	UserDataManager userManager;
+	Provider<UserDataManager> userManager;
 	
 	@Override
 	public void destroy() {}
@@ -31,7 +32,7 @@ public class OpenIDLoginFilter implements Filter {
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
 		
-		if(userManager.getUserCount() == 0) {
+		if(userManager.get().getUserCount() == 0) {
 			arg2.doFilter(arg0, arg1);
 			return;
 		}

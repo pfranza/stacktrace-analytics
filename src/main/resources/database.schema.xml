@@ -3,12 +3,43 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 	
 	<changeSet author="pfranza" id="1">
-        <createTable tableName="serverusers">
+        <createTable tableName="user">
             <column name="id" type="VARCHAR(255)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="serverusers_pkey"/>
             </column>
             <column name="emailaddress" type="VARCHAR(255)"/>
+            <column name="authorizationid" type="VARCHAR(255)"/>
         </createTable>
+        
+        <createTable tableName="stacktraceentry">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stacktraceentry_pkey"/>
+            </column>
+            <column name="applicationid" type="VARCHAR(255)"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="timeoccured" type="DATETIME"/>
+            <column name="raw" type="VARCHAR(4096)"/>
+        </createTable>
+        
+        <createTable tableName="stacktraceentry_fingerprints">
+            <column name="stacktraceentry_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fingerprints" type="VARCHAR(1024)"/>
+        </createTable>
+        
+        
+        <createTable tableName="applicationmodel">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="applicationmodel_pkey"/>
+            </column>
+            <column name="applicationname" type="VARCHAR(255)"/>
+            <column name="applicationdescription" type="VARCHAR(255)"/>
+            <column name="apikey" type="VARCHAR(255)"/>
+            <column name="tokensecret" type="VARCHAR(255)"/>
+            <column name="consumersecret" type="VARCHAR(255)"/>
+        </createTable>
+        
     </changeSet>
 	
 </databaseChangeLog>

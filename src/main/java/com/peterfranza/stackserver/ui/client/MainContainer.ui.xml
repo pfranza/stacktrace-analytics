@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.tabs {
+			width: 960px;
+		}
+		
+		.main{
+			width: 960px;
+			background-color: #FFF;
+			padding: 10px;
+			border-radius: 10px;
+		}
+		
+		.foot {
+			text-align: right;
+			padding: 10px;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+	    <center>
+		<div class="{style.main}">
+		    <div class="{style.foot}">
+				<g:Button ui:field="settings">Settings</g:Button>
+			</div>	
+			<g:TabPanel ui:field="mainTab" addStyleNames="{style.tabs}"/>
+		</div>
+	</center>	
+	</g:HTMLPanel>
+</ui:UiBinder> 
