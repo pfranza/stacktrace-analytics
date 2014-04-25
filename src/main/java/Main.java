@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.ProtectionDomain;
 
@@ -25,8 +26,14 @@ public class Main {
         org.eclipse.jetty.webapp.Configuration.ClassList classlist = org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
         classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
  
+        InputStream datasource;
+        if(System.getProperty("datasource", null) != null) {
+        	datasource = new FileInputStream(System.getProperty("datasource"));
+        } else {
+        	datasource = Main.class.getResourceAsStream("memorydb.xml");
+        }
                
-        XmlConfiguration config = new XmlConfiguration(new FileInputStream(System.getProperty("datasource")));
+        XmlConfiguration config = new XmlConfiguration(datasource);
         WebAppContext webapp = (WebAppContext) config.configure();
 
         webapp.setContextPath("/");
