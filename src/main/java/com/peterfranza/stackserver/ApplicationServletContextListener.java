@@ -11,8 +11,10 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.peterfranza.stackserver.api.SubmitStackTrace;
+import com.peterfranza.stackserver.data.ApplicationDefinition;
 import com.peterfranza.stackserver.security.RequiresAuthentication;
 import com.peterfranza.stackserver.security.SecurityInterceptor;
+import com.peterfranza.stackserver.security.SecurityInterceptor.ApplicationDefinitionFactory;
 import com.peterfranza.stackserver.security.openid.OpenIDLoginModule;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
@@ -27,6 +29,7 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 			install(new JpaPersistModule("InMemoryData"));
 			install(new OpenIDLoginModule());
 			bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
+			bind(ApplicationDefinition.class).toProvider(ApplicationDefinitionFactory.class);
 			
 			bind(SubmitStackTrace.class);
 			

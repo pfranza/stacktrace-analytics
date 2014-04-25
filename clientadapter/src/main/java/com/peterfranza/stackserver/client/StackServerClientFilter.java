@@ -25,13 +25,10 @@ public class StackServerClientFilter implements Filter {
 			FilterChain arg2) throws IOException, ServletException {
 		try {
 			arg2.doFilter(arg0, arg1);
-		} catch(IOException e) {
+		} catch(Throwable e) {
 			client.submit(e);
 			throw e;
-		} catch(ServletException e) {
-			client.submit(e);
-			throw e;
-		}
+		} 
 	}
 
 	@Override
