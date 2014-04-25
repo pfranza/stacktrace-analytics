@@ -33,7 +33,6 @@ public class DefaultStackServerClient implements StackServerClient {
 	
 	@Override
 	public void submit(Throwable t) {
-		
 //		ServiceInterface proxy = WebResource.newResource(ServiceInterface.class,
 //				dataResource.target("/submit"));
 	}
