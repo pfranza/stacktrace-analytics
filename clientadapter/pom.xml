@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.peterfranza</groupId>
+	<artifactId>stackanalytics-client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Stack Analytics Server</name>
+	<description>Server that collects stack traces from software and provides analytics about them.</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>LATEST</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>LATEST</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.oauth</groupId>
+			<artifactId>oauth-signature</artifactId>
+			<version>1.1.1-ea</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.oauth</groupId>
+			<artifactId>oauth-client</artifactId>
+			<version>1.1.1-ea</version>
+		</dependency>
+	
+	</dependencies>
+
+</project>

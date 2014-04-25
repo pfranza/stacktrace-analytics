@@ -9,8 +9,7 @@
   <inherits name="com.google.gwt.activity.Activity" />
   <inherits name="com.google.gwt.place.Place" />
   <inherits name="com.google.gwt.xml.XML" />
-  
-  
+    
   <entry-point class="com.peterfranza.stackserver.ui.client.StackServerEntryPoint"/>
   
   <source path='client' />

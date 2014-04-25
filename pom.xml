@@ -8,6 +8,7 @@
 	<name>Stack Analytics Server</name>
 	<description>Server that collects stack traces from software and provides analytics about them.</description>
 
+
 	<dependencies>
 
 		<dependency>
@@ -172,7 +173,14 @@
 	<build>
 		<finalName>stackanalytics</finalName>
 		<plugins>
-
+<plugin> 
+<groupId>org.apache.maven.plugins</groupId> 
+<artifactId>maven-compiler-plugin</artifactId> 
+<configuration> 
+<source>1.5</source> 
+<target>1.5</target> 
+</configuration> 
+</plugin> 
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
