@@ -2,8 +2,7 @@ package com.peterfranza.stackserver;
 
 import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
-
-import javax.naming.InitialContext;
+import net.customware.gwt.dispatch.server.guice.GuiceStandardDispatchServlet;
 
 import org.aopalliance.intercept.MethodInterceptor;
 
@@ -20,6 +19,7 @@ import com.peterfranza.stackserver.security.RequiresAuthentication;
 import com.peterfranza.stackserver.security.SecurityInterceptor;
 import com.peterfranza.stackserver.security.SecurityInterceptor.ApplicationDefinitionFactory;
 import com.peterfranza.stackserver.security.openid.OpenIDLoginModule;
+import com.peterfranza.stackserver.ui.server.ActionModule;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
@@ -36,6 +36,9 @@ public class ApplicationServletContextListener extends GuiceServletContextListen
 			bind(SubmitStackTrace.class);
 			
 			filter("/*").through(PersistFilter.class);
+			
+			serve("/stackserverui/dispatch").with(GuiceStandardDispatchServlet.class);
+			install(new ActionModule());
 			
 			bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
 			bind(ApplicationDefinition.class).toProvider(ApplicationDefinitionFactory.class);

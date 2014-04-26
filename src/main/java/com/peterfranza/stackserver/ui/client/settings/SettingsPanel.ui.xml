@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:u="urn:import:com.peterfranza.stackserver.ui.client.manageusers"
+	xmlns:a="urn:import:com.peterfranza.stackserver.ui.client.manageapplications">
+	<ui:style>
+		.right{float: right;}
+		.left{float: left;}
+		.tabs{
+			width: 560px;
+			height: 450px;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:TabPanel ui:field="mainTab" addStyleNames="{style.tabs}">
+			<g:Tab text="Manage Users">
+        		<u:ManageUsers/>
+    		</g:Tab>
+    		<g:Tab text="Manage Applications">
+        		<a:ManageApplications/>
+    		</g:Tab>
+		</g:TabPanel>
+		<div style="padding: 10px;">
+			<g:Button ui:field="close" addStyleNames="{style.right}">Close</g:Button>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 
