@@ -14,10 +14,10 @@
 	<g:HTMLPanel>
 		<g:TabPanel ui:field="mainTab" addStyleNames="{style.tabs}">
 			<g:Tab text="Manage Users">
-        		<u:ManageUsers/>
+        		<u:ManageUsers ui:field="users"/>
     		</g:Tab>
     		<g:Tab text="Manage Applications">
-        		<a:ManageApplications/>
+        		<a:ManageApplications ui:field="applications"/>
     		</g:Tab>
 		</g:TabPanel>
 		<div style="padding: 10px;">

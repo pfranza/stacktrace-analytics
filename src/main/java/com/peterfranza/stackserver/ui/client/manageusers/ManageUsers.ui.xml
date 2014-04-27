@@ -5,5 +5,15 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
+		<g:HorizontalPanel>
+			<g:VerticalPanel>
+				<g:ListBox ui:field="listBox" visibleItemCount="20"></g:ListBox>
+				<g:Button ui:field="remove">Delete</g:Button>
+			</g:VerticalPanel>
+			<g:VerticalPanel>
+				<g:TextBox ui:field="username"></g:TextBox>
+				<g:Button ui:field="add">Add</g:Button>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

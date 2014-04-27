@@ -1,5 +1,7 @@
 package com.peterfranza.stackserver.data;
 
+import java.util.Collection;
+
 import com.google.inject.ImplementedBy;
 import com.peterfranza.stackserver.data.impl.DefaultUserDataManager;
 import com.peterfranza.stackserver.data.model.User;
@@ -20,5 +22,7 @@ public interface UserDataManager {
 	User getByEmail(String emailAddress);
 	
 	User getByAuthorizationId(String authorizationId);
+
+	Collection<User> getAllUsers();
 	
 }

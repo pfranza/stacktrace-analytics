@@ -1,11 +1,13 @@
 package com.peterfranza.stackserver.data.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -84,6 +86,9 @@ public class DefaultUserDataManager implements UserDataManager {
 		User u = new User();
 		u.setEmailAddress(email);
 		entityManager.get().persist(u);	
+		System.out.println("Added: " + u.getEmailAddress() + "  " + u.getId());
+		
+		entityManager.get().persist(u);
 	}
 
 	@Override
@@ -98,6 +103,18 @@ public class DefaultUserDataManager implements UserDataManager {
 	@Transactional
 	public void removeUser(String email) {
 		entityManager.get().remove(getByEmail(email));
+	}
+
+
+	@Override
+	public Collection<User> getAllUsers() {
+		CriteriaBuilder qb = entityManager.get().getCriteriaBuilder();
+		CriteriaQuery<User> c = qb.createQuery(User.class);
+
+		c.from(User.class);
+		TypedQuery<User> q = entityManager.get().createQuery(c);
+		
+		return q.getResultList();
 	}
 
 
