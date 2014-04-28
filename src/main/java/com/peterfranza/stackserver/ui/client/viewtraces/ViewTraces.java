@@ -55,35 +55,35 @@ public class ViewTraces extends Composite {
 	protected void onAttach() {
 		super.onAttach();
 		
-//		Column<StackTraceEntry, SafeHtml> nameColumn = new Column<StackTraceEntry, SafeHtml>(new SafeHtmlCell()) {			
-//			@Override
-//			public SafeHtml getValue(StackTraceEntry object) {
-//				return SafeHtmlUtils.fromString(object.getTimeOccured().toString());
-//			}
-//		};
-//		
-//	    table.addColumn(nameColumn, "Timestamp");
-//	    
-//	    
-//	    dataProvider.addDataDisplay(table);
-//		pager.setDisplay(table);
+		Column<StackTraceEntry, SafeHtml> nameColumn = new Column<StackTraceEntry, SafeHtml>(new SafeHtmlCell()) {			
+			@Override
+			public SafeHtml getValue(StackTraceEntry object) {
+				return SafeHtmlUtils.fromString(object.getTimeOccured().toString());
+			}
+		};
+		
+	    table.addColumn(nameColumn, "Timestamp");
+	    
+	    
+	    dataProvider.addDataDisplay(table);
+		pager.setDisplay(table);
 	}
 	
 	private void updateRows(final Range range) {
-//		dispatcher.execute(new FetchStackTraceList(range.getStart(), range.getLength()), 
-//        		new AsyncCallback<StackTraceEntryCollectionResult>() {
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				Window.alert(caught.getMessage());
-//				throw new RuntimeException(caught);
-//			}
-//
-//			@Override
-//			public void onSuccess(StackTraceEntryCollectionResult result) {
-//				table.setRowCount(result.getCount(), true);
-//				table.setRowData(result.getStart(), result.getList());
-//			}
-//		});
+		dispatcher.execute(new FetchStackTraceList(range.getStart(), range.getLength()), 
+        		new AsyncCallback<StackTraceEntryCollectionResult>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				throw new RuntimeException(caught);
+			}
+
+			@Override
+			public void onSuccess(StackTraceEntryCollectionResult result) {
+				table.setRowCount(result.getCount(), true);
+				table.setRowData(result.getStart(), result.getList());
+			}
+		});
 	}
 
 }

@@ -30,9 +30,12 @@ public class MainContainer extends Composite {
 	@UiField TabPanel mainTab;
 	
 	@Inject Provider<SettingsPanel> settingsProvider;
-	@Inject Provider<ViewTraces> viewTracesProvider;
 
-	public MainContainer() {
+	private Provider<ViewTraces> viewTracesProvider;
+	
+	@Inject 
+	public MainContainer(Provider<ViewTraces> viewTracesProvider) {
+		this.viewTracesProvider = viewTracesProvider;
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	

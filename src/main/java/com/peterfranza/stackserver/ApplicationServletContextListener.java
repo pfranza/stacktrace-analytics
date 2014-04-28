@@ -12,7 +12,7 @@ import com.peterfranza.stackserver.api.GetServerTime;
 import com.peterfranza.stackserver.api.SubmitStackTrace;
 import com.peterfranza.stackserver.data.impl.util.AbstractListingAgent;
 import com.peterfranza.stackserver.data.impl.util.ListingAgent;
-import com.peterfranza.stackserver.data.impl.util.ListingAgentFactory;
+import com.peterfranza.stackserver.data.impl.util.AbstractListingAgentFactory;
 import com.peterfranza.stackserver.security.ApiSecurityModule;
 import com.peterfranza.stackserver.security.openid.OpenIDLoginModule;
 import com.peterfranza.stackserver.ui.server.ActionModule;

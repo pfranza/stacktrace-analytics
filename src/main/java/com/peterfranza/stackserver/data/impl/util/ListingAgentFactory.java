@@ -1,14 +1,8 @@
 package com.peterfranza.stackserver.data.impl.util;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import com.google.inject.ImplementedBy;
 
-public class ListingAgentFactory {
-	
-	@Inject
-	EntityManager entityManager;
-	
-	<T> ListingAgent<T> create(Class<T> cls) {
-		return new AbstractListingAgent<T>(entityManager, cls);
-	}
+@ImplementedBy(AbstractListingAgentFactory.class)
+public interface ListingAgentFactory {
+	<T> ListingAgent<T> create(Class<T> cls);
 }
