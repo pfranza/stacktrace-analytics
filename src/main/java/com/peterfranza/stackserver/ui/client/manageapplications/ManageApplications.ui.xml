@@ -7,8 +7,8 @@
 		<g:HTMLPanel>
 		<g:HorizontalPanel>
 			<g:VerticalPanel>
-				<g:ListBox ui:field="listBox" visibleItemCount="20"></g:ListBox>
-				<g:Button ui:field="remove">Delete</g:Button>
+				<g:ListBox ui:field="listBox" visibleItemCount="20" width="200"></g:ListBox>
+				
 			</g:VerticalPanel>
 			<g:VerticalPanel>
 				<g:TextBox ui:field="applicationName"></g:TextBox>
@@ -16,9 +16,10 @@
 				<g:Button ui:field="add">Add</g:Button>
 				<g:HTMLPanel>
 				  <hr/>
-				  <g:Label ui:field="apiKey"/>
-				  <g:Label ui:field="token"/>
-				  <g:Label ui:field="consumer"/>  
+				  <b>API KEY:</b><g:Label ui:field="apiKey"/><br/>
+				  <b>Token:</b><g:Label ui:field="token"/><br/>
+				  <b>Consumer KEY:</b><g:Label ui:field="consumer"/><br/>  
+				  <g:Button ui:field="remove">Delete</g:Button>
 				</g:HTMLPanel>    
 			</g:VerticalPanel>
 		</g:HorizontalPanel>
