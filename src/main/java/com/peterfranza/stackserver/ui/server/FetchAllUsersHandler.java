@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -17,16 +18,17 @@ import com.peterfranza.stackserver.ui.shared.UserCollectionResult;
 
 public class FetchAllUsersHandler implements ActionHandler<FetchAllUsers, UserCollectionResult>{
 
-	@Inject UserDataManager dataManager;
+	@Inject 
+	public Provider<UserDataManager> dataManager;
 	
 	@Override
 	public UserCollectionResult execute(FetchAllUsers arg0,
 			ExecutionContext arg1) throws DispatchException {
 		UserCollectionResult result = new UserCollectionResult();
-			result.setList(transform(dataManager.getAllUsers()));
+			result.setList(transform(dataManager.get().getAllUsers()));
 			
-		System.out.println("User Count " + dataManager.getUserCount());
-		System.out.println("Users " + dataManager.getAllUsers().size());
+		System.out.println("User Count " + dataManager.get().getUserCount());
+		System.out.println("Users " + dataManager.get().getAllUsers().size());
 			
 		return result;
 	}

@@ -6,20 +6,18 @@ import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.peterfranza.stackserver.data.UserDataManager;
 import com.peterfranza.stackserver.ui.shared.DeleteUser;
 import com.peterfranza.stackserver.ui.shared.FetchAllUsers;
 import com.peterfranza.stackserver.ui.shared.UserCollectionResult;
 
 public class DeleteUserHandler implements ActionHandler<DeleteUser, UserCollectionResult>{
 
-	@Inject UserDataManager dataManager;
 	@Inject FetchAllUsersHandler fetch;
 	
 	@Override
 	public UserCollectionResult execute(DeleteUser arg0, ExecutionContext arg1)
 			throws DispatchException {
-		dataManager.removeUser(arg0.getEmailAddress());
+		fetch.dataManager.get().removeUser(arg0.getEmailAddress());
 		return fetch.execute(new FetchAllUsers(), arg1);
 	}
 

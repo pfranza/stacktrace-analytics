@@ -46,6 +46,7 @@ public class OpenIDResponseServlet extends HttpServlet {
 	@Inject
 	Provider<UserDataManager> userManager;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -55,7 +56,13 @@ public class OpenIDResponseServlet extends HttpServlet {
 			resp.sendRedirect("/login");
 		} else {
 			String email = ((Map<String,String>)request.getAttribute("attributes")).get("email");
-			if(userManager.get().isUserAuthorized(email)) {
+			
+			if(userManager.get().getUserCount() == 0) {
+				HttpSession s = request.getSession(true);	
+				userManager.get().createUser(email);
+				userManager.get().setUserAuthorizatonId(email, identifier.getIdentifier());
+				resp.sendRedirect(s.getAttribute("OrigionalRequest").toString());
+			} else if(userManager.get().isUserAuthorized(email)) {
 				HttpSession s = request.getSession(true);			
 				s.setAttribute("OpenIDAuthorizationID", identifier.getIdentifier());
 				userManager.get().setUserAuthorizatonId(email, identifier.getIdentifier());

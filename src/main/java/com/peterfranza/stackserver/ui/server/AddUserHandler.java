@@ -13,13 +13,12 @@ import com.peterfranza.stackserver.ui.shared.UserCollectionResult;
 
 public class AddUserHandler implements ActionHandler<AddUser, UserCollectionResult>{
 
-	@Inject UserDataManager dataManager;
 	@Inject FetchAllUsersHandler fetch;
 	
 	@Override
 	public UserCollectionResult execute(AddUser arg0, ExecutionContext arg1)
 			throws DispatchException {
-		dataManager.createUser(arg0.getEmailAddress());
+		fetch.dataManager.get().createUser(arg0.getEmailAddress());
 		return fetch.execute(new FetchAllUsers(), arg1);
 	}
 
