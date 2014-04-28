@@ -47,6 +47,24 @@ public class ApplicationModel implements ApplicationDefinition {
 	public String getApplicationDescription() {
 		return applicationDescription;
 	}
+	public String getApiKey() {
+		return apiKey;
+	}
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+	public void setApplicationDescription(String applicationDescription) {
+		this.applicationDescription = applicationDescription;
+	}
+	public void setTokenSecret(String tokenSecret) {
+		this.tokenSecret = tokenSecret;
+	}
+	public void setConsumerSecret(String consumerSecret) {
+		this.consumerSecret = consumerSecret;
+	}
 	
 	
 	

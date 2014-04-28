@@ -7,5 +7,7 @@ import com.peterfranza.stackserver.data.impl.DefaultApplicationDataManager;
 public interface ApplicationDataManager {
 
 	ApplicationDefinition getApplicationByApiKey(String apiKey);
+
+	ApplicationDefinition createApplication(String name, String description);
 	
 }

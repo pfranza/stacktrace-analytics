@@ -17,7 +17,6 @@ import com.peterfranza.stackserver.data.UserDataManager;
 import com.peterfranza.stackserver.data.model.User;
 import com.peterfranza.stackserver.data.model.User_;
 
-@Transactional
 public class DefaultUserDataManager implements UserDataManager {
 
 	@Inject
@@ -68,7 +67,7 @@ public class DefaultUserDataManager implements UserDataManager {
 	}
 
 	
-	public <T> T getSingleResultOrNull(TypedQuery<T> query){
+	public static <T> T getSingleResultOrNull(TypedQuery<T> query){
 		query.setMaxResults(1);
 		query.setHint("org.hibernate.cacheable", true);
 		List<T> results = query.getResultList();
