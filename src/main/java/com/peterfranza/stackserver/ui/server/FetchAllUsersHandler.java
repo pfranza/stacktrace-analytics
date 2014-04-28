@@ -12,9 +12,9 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.peterfranza.stackserver.data.UserDataManager;
-import com.peterfranza.stackserver.data.model.User;
 import com.peterfranza.stackserver.ui.shared.FetchAllUsers;
 import com.peterfranza.stackserver.ui.shared.UserCollectionResult;
+import com.peterfranza.stackserver.ui.shared.model.User;
 
 public class FetchAllUsersHandler implements ActionHandler<FetchAllUsers, UserCollectionResult>{
 
@@ -26,10 +26,7 @@ public class FetchAllUsersHandler implements ActionHandler<FetchAllUsers, UserCo
 			ExecutionContext arg1) throws DispatchException {
 		UserCollectionResult result = new UserCollectionResult();
 			result.setList(transform(dataManager.get().getAllUsers()));
-			
-		System.out.println("User Count " + dataManager.get().getUserCount());
-		System.out.println("Users " + dataManager.get().getAllUsers().size());
-			
+	
 		return result;
 	}
 	

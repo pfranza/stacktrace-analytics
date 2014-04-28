@@ -9,14 +9,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 import com.google.gson.Gson;
-import com.peterfranza.stackserver.data.ApplicationDefinition;
 import com.peterfranza.stackserver.security.RequiresAuthentication;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 
 @Path("/submit")
 public class SubmitStackTrace {
 
 	@Inject
-	Provider<ApplicationDefinition> application;
+	Provider<ApplicationModel> application;
 	
 	@POST
 	@RequiresAuthentication

@@ -1,13 +1,18 @@
 package com.peterfranza.stackserver.data;
 
+import java.util.Collection;
+
 import com.google.inject.ImplementedBy;
 import com.peterfranza.stackserver.data.impl.DefaultApplicationDataManager;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 
 @ImplementedBy(DefaultApplicationDataManager.class)
 public interface ApplicationDataManager {
 
-	ApplicationDefinition getApplicationByApiKey(String apiKey);
+	ApplicationModel getApplicationByApiKey(String apiKey);
 
-	ApplicationDefinition createApplication(String name, String description);
+	ApplicationModel createApplication(String name, String description);
+	
+	Collection<ApplicationModel> getAllApplications();
 	
 }

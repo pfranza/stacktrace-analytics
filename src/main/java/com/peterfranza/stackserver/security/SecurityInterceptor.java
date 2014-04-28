@@ -11,7 +11,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import com.peterfranza.stackserver.data.ApplicationDataManager;
-import com.peterfranza.stackserver.data.ApplicationDefinition;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthRequest;
@@ -25,7 +25,7 @@ public class SecurityInterceptor implements MethodInterceptor {
 	@Inject Provider<HttpContext> contextProvider;
 	@Inject Provider<ApplicationDataManager> dataManager;
 	
-	private static final ThreadLocal<Provider<ApplicationDefinition>> localStore = new ThreadLocal<Provider<ApplicationDefinition>>();
+	private static final ThreadLocal<Provider<ApplicationModel>> localStore = new ThreadLocal<Provider<ApplicationModel>>();
 	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -39,7 +39,7 @@ public class SecurityInterceptor implements MethodInterceptor {
 					params = params.readRequest(request);
 
 					boolean found = false;
-					final ApplicationDefinition application = dataManager.get().getApplicationByApiKey(params.getConsumerKey());
+					final ApplicationModel application = dataManager.get().getApplicationByApiKey(params.getConsumerKey());
 					if(application != null) {
 						OAuthSecrets secrets = new OAuthSecrets();
 						secrets.setTokenSecret(application.getTokenSecret());
@@ -50,9 +50,9 @@ public class SecurityInterceptor implements MethodInterceptor {
 								throw new WebApplicationException(403);
 							} else {
 								found = true;
-								localStore.set(new Provider<ApplicationDefinition>() {
+								localStore.set(new Provider<ApplicationModel>() {
 									@Override
-									public ApplicationDefinition get() {
+									public ApplicationModel get() {
 										return application;
 									}
 								});
@@ -75,9 +75,9 @@ public class SecurityInterceptor implements MethodInterceptor {
 		}
 	}
 	
-	public static class ApplicationDefinitionFactory implements Provider<ApplicationDefinition> {
+	public static class ApplicationDefinitionFactory implements Provider<ApplicationModel> {
 		@Override
-		public ApplicationDefinition get() {
+		public ApplicationModel get() {
 			return localStore.get().get();
 		}
 		

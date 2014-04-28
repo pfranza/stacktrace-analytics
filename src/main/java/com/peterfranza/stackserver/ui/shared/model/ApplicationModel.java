@@ -1,4 +1,6 @@
-package com.peterfranza.stackserver.data.model;
+package com.peterfranza.stackserver.ui.shared.model;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,10 +8,13 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.peterfranza.stackserver.data.ApplicationDefinition;
-
 @Entity
-public class ApplicationModel implements ApplicationDefinition {
+public class ApplicationModel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2381989693913943094L;
 
 	@Id 
 	@GeneratedValue(generator="system-uuid")
@@ -23,19 +28,15 @@ public class ApplicationModel implements ApplicationDefinition {
 	private String tokenSecret;
 	private String consumerSecret;
 	
-	@Override
 	public String getId() {
 		return id;
 	}
-	@Override
 	public String getAPIKey() {
 		return apiKey;
 	}
-	@Override
 	public String getTokenSecret() {
 		return tokenSecret;
 	}
-	@Override
 	public String getConsumerSecret() {
 		return consumerSecret;
 	}

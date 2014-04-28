@@ -1,13 +1,14 @@
 package com.peterfranza.stackserver.ui.server;
 
-import com.google.inject.servlet.RequestScoped;
-import com.google.inject.servlet.ServletModule;
-import com.peterfranza.stackserver.ui.shared.AddUser;
-import com.peterfranza.stackserver.ui.shared.DeleteUser;
-import com.peterfranza.stackserver.ui.shared.FetchAllUsers;
-
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import net.customware.gwt.dispatch.server.guice.GuiceStandardDispatchServlet;
+
+import com.google.inject.servlet.ServletModule;
+import com.peterfranza.stackserver.ui.shared.AddApplication;
+import com.peterfranza.stackserver.ui.shared.AddUser;
+import com.peterfranza.stackserver.ui.shared.DeleteUser;
+import com.peterfranza.stackserver.ui.shared.FetchAllApplications;
+import com.peterfranza.stackserver.ui.shared.FetchAllUsers;
 
 public class ActionModule extends ActionHandlerModule {
 
@@ -22,7 +23,10 @@ public class ActionModule extends ActionHandlerModule {
 		bindHandler(FetchAllUsers.class, FetchAllUsersHandler.class);
 		bindHandler(AddUser.class, AddUserHandler.class);
 		bindHandler(DeleteUser.class, DeleteUserHandler.class);
-		bind(AddUser.class).in(RequestScoped.class);
+		
+		bindHandler(AddApplication.class, AddApplicationHandler.class);
+		bindHandler(FetchAllApplications.class, FetchAllApplicationsHandler.class);
+		
 	}
 
 }

@@ -6,8 +6,8 @@ import static com.google.inject.matcher.Matchers.any;
 import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.AbstractModule;
-import com.peterfranza.stackserver.data.ApplicationDefinition;
 import com.peterfranza.stackserver.security.SecurityInterceptor.ApplicationDefinitionFactory;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 
 public class ApiSecurityModule extends AbstractModule {
 
@@ -16,7 +16,7 @@ public class ApiSecurityModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bindInterceptor(any(), annotatedWith(RequiresAuthentication.class), interceptor);
-		bind(ApplicationDefinition.class).toProvider(ApplicationDefinitionFactory.class);
+		bind(ApplicationModel.class).toProvider(ApplicationDefinitionFactory.class);
 		requestInjection(interceptor);
 		
 	}

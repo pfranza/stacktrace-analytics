@@ -11,9 +11,9 @@
 
 
 		<!-- JPA entities must be registered here -->
-		<class>com.peterfranza.stackserver.data.model.User</class>
-		<class>com.peterfranza.stackserver.data.model.ApplicationModel</class>
-		<class>com.peterfranza.stackserver.data.model.StackTraceEntry</class>
+		<class>com.peterfranza.stackserver.ui.shared.model.User</class>
+		<class>com.peterfranza.stackserver.ui.shared.model.ApplicationModel</class>
+		<class>com.peterfranza.stackserver.ui.shared.model.StackTraceEntry</class>
 
 
 		<shared-cache-mode>ALL</shared-cache-mode>

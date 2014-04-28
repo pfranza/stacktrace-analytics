@@ -1,4 +1,4 @@
-package com.peterfranza.stackserver.data.model;
+package com.peterfranza.stackserver.ui.shared.model;
 
 import java.util.ArrayList;
 import java.util.Date;

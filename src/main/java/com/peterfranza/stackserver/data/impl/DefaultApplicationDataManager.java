@@ -2,6 +2,7 @@ package com.peterfranza.stackserver.data.impl;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Collection;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -13,9 +14,8 @@ import javax.persistence.criteria.Root;
 
 import com.google.inject.persist.Transactional;
 import com.peterfranza.stackserver.data.ApplicationDataManager;
-import com.peterfranza.stackserver.data.ApplicationDefinition;
-import com.peterfranza.stackserver.data.model.ApplicationModel;
 import com.peterfranza.stackserver.data.model.ApplicationModel_;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 
 public class DefaultApplicationDataManager implements ApplicationDataManager {
 
@@ -23,7 +23,7 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 	EntityManager entityManager;
 	
 	@Override
-	public ApplicationDefinition getApplicationByApiKey(String apiKey) {
+	public ApplicationModel getApplicationByApiKey(String apiKey) {
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<ApplicationModel> c = qb.createQuery(ApplicationModel.class);
 
@@ -33,9 +33,20 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 		return DefaultUserDataManager.getSingleResultOrNull(q);
 	}
 	
+
+	@Override
+	public Collection<ApplicationModel> getAllApplications() {
+		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ApplicationModel> c = qb.createQuery(ApplicationModel.class);
+
+		c.from(ApplicationModel.class);
+		TypedQuery<ApplicationModel> q = entityManager.createQuery(c); 
+		return q.getResultList();
+	}
+	
 	@Transactional
 	@Override
-	public ApplicationDefinition createApplication(String name, String description) {
+	public ApplicationModel createApplication(String name, String description) {
 		ApplicationModel m = new ApplicationModel();
 			m.setApplicationName(name);
 			m.setApplicationDescription(description);
@@ -53,5 +64,6 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 	private String nextRandomToken() {
 	  return new BigInteger(256, random).toString(32);
 	}
+
 
 }

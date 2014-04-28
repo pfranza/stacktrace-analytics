@@ -1,4 +1,4 @@
-package com.peterfranza.stackserver.data.model;
+package com.peterfranza.stackserver.ui.shared.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
