@@ -23,7 +23,7 @@ import com.sun.jersey.oauth.signature.OAuthSignatureException;
 public class SecurityInterceptor implements MethodInterceptor {
 
 	@Inject Provider<HttpContext> contextProvider;
-	@Inject ApplicationDataManager dataManager;
+	@Inject Provider<ApplicationDataManager> dataManager;
 	
 	private static final ThreadLocal<Provider<ApplicationDefinition>> localStore = new ThreadLocal<Provider<ApplicationDefinition>>();
 	
@@ -39,7 +39,7 @@ public class SecurityInterceptor implements MethodInterceptor {
 					params = params.readRequest(request);
 
 					boolean found = false;
-					final ApplicationDefinition application = dataManager.getApplicationByApiKey(params.getConsumerKey());
+					final ApplicationDefinition application = dataManager.get().getApplicationByApiKey(params.getConsumerKey());
 					if(application != null) {
 						OAuthSecrets secrets = new OAuthSecrets();
 						secrets.setTokenSecret(application.getTokenSecret());
