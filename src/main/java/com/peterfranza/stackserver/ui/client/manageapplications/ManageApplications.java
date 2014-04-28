@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -94,6 +95,21 @@ public class ManageApplications extends Composite {
 	void onClickAdd(ClickEvent evt) {
 		dispatcher.execute(new AddApplication(applicationName.getValue(), applicationDescription.getValue()), loader);
 	}
+	
+	@UiHandler("listBox")
+	void onChangeAdd(ChangeEvent evt) {
+		if(listBox.getSelectedIndex() == -1) {
+			apiKey.setText("");
+			token.setText("");
+			consumer.setText("");
+		} else {
+			ApplicationModel m = cache.get(listBox.getSelectedIndex());
+			apiKey.setText(m.getApiKey());
+			token.setText(m.getTokenSecret());
+			consumer.setText(m.getConsumerSecret());
+		}
+	}
 
 }
+
 

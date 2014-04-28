@@ -2,7 +2,10 @@ package com.peterfranza.stackserver.data.impl;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -12,10 +15,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.google.inject.persist.Transactional;
 import com.peterfranza.stackserver.data.ApplicationDataManager;
 import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 import com.peterfranza.stackserver.ui.shared.model.ApplicationModel_;
+import com.peterfranza.stackserver.ui.shared.model.StackTraceEntry;
 
 public class DefaultApplicationDataManager implements ApplicationDataManager {
 
@@ -59,11 +65,41 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 		
 		return m;
 	}
+
+	@Transactional
+	@Override
+	public void appendTrace(ApplicationModel applicationModel,
+			String hostSignature, String data, String version,
+			StackTraceElement[] traceElements) {
+		StackTraceEntry e = new StackTraceEntry();
+			e.setApplicationId(applicationModel.getId());
+			e.setRaw(data);
+			e.setTimeOccured(new Date());
+			e.setVersion(version);
+			e.setFingerprints(transformPrints(applicationModel, traceElements));
+			
+		entityManager.persist(e);
+	}
 	
+	private List<String> transformPrints(ApplicationModel applicationModel, StackTraceElement[] traceElements) {
+		ArrayList<String> list = new ArrayList<String>();
+		for(StackTraceElement e: traceElements) {
+			if(filterPrint(applicationModel, e)) {
+				list.add(new String(DigestUtils.md5(e.toString())));
+			}
+		}
+		return list;
+	}
+
+	private boolean filterPrint(ApplicationModel applicationModel, StackTraceElement e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.toString());
+		return true;
+	}
+
 	private SecureRandom random = new SecureRandom();
 	private String nextRandomToken() {
 	  return new BigInteger(256, random).toString(32);
 	}
-
 
 }

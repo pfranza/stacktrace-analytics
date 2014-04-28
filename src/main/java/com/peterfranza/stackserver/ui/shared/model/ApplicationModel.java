@@ -31,9 +31,7 @@ public class ApplicationModel implements Serializable {
 	public String getId() {
 		return id;
 	}
-	public String getAPIKey() {
-		return apiKey;
-	}
+
 	public String getTokenSecret() {
 		return tokenSecret;
 	}

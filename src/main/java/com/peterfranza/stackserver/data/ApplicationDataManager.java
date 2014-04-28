@@ -14,5 +14,8 @@ public interface ApplicationDataManager {
 	ApplicationModel createApplication(String name, String description);
 	
 	Collection<ApplicationModel> getAllApplications();
+
+	void appendTrace(ApplicationModel applicationModel, String hostSignature,
+			String data, String version, StackTraceElement[] traceElements);
 	
 }

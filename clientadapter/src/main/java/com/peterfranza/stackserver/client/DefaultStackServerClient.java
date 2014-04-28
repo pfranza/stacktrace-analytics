@@ -54,12 +54,16 @@ public class DefaultStackServerClient implements StackServerClient {
 		
 	}
 	
+	public String getTime() {
+		return dataResource.path("/time").get(String.class);
+	}
+	
 	@Override
 	public void submit(Throwable t) {
 		MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
 			formData.add("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
 			
-		dataResource.path("/submit").type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(formData);
+		dataResource.path("/submit").post(formData);
 	}
 	
 	private static TraceDefinition createDefinition(Throwable t, String version, String hostSignature) {
@@ -95,16 +99,4 @@ public class DefaultStackServerClient implements StackServerClient {
 		public StackTraceElement[] traceElements;
 	}
 	
-//	public static void main(String[] args) {
-//		try {
-//			try {
-//				throw new IOException();
-//			} catch(Throwable e) {
-//				throw new IOError(e);
-//			}
-//		} catch(Throwable e) {
-//			System.out.println(new Gson().toJson(createDefinition(e, "1.0", "localhost")));
-//		}
-//	}
-
 }

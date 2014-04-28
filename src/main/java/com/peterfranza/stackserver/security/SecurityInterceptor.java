@@ -34,19 +34,19 @@ public class SecurityInterceptor implements MethodInterceptor {
 				if (a instanceof RequiresAuthentication ) {
 
 					OAuthRequest request = new OAuthServerRequest(contextProvider.get().getRequest());
-
-					OAuthParameters params = new OAuthParameters().signatureMethod("HMAC-SHA1").version();			
-					params = params.readRequest(request);
-
+					OAuthParameters params = new OAuthParameters().signatureMethod("HMAC-SHA1").version().readRequest(request);
+					
 					boolean found = false;
 					final ApplicationModel application = dataManager.get().getApplicationByApiKey(params.getConsumerKey());
 					if(application != null) {
+	
 						OAuthSecrets secrets = new OAuthSecrets();
 						secrets.setTokenSecret(application.getTokenSecret());
 						secrets.setConsumerSecret(application.getConsumerSecret());
 
 						try {
 							if(!OAuthSignature.verify(request, params, secrets)) {
+								System.out.println("Verification Failed");
 								throw new WebApplicationException(403);
 							} else {
 								found = true;
