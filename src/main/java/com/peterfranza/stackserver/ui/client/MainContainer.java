@@ -9,6 +9,7 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.peterfranza.stackserver.ui.client.settings.SettingsPanel;
+import com.peterfranza.stackserver.ui.client.viewtraces.ViewTraces;
 
 public class MainContainer extends Composite {
 
@@ -28,6 +30,7 @@ public class MainContainer extends Composite {
 	@UiField TabPanel mainTab;
 	
 	@Inject Provider<SettingsPanel> settingsProvider;
+	@Inject Provider<ViewTraces> viewTracesProvider;
 
 	public MainContainer() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -53,6 +56,11 @@ public class MainContainer extends Composite {
 				dialog.center();
 			}
 		});
+	}
+	
+	@UiFactory
+	public ViewTraces getViewTraces() {
+		return viewTracesProvider.get();
 	}
 
 }

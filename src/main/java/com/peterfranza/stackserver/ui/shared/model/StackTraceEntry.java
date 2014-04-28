@@ -1,5 +1,6 @@
 package com.peterfranza.stackserver.ui.shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +12,15 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+
 @Entity
-public class StackTraceEntry {
+public class StackTraceEntry implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id 
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")

@@ -9,6 +9,7 @@ import com.peterfranza.stackserver.ui.shared.AddUser;
 import com.peterfranza.stackserver.ui.shared.DeleteUser;
 import com.peterfranza.stackserver.ui.shared.FetchAllApplications;
 import com.peterfranza.stackserver.ui.shared.FetchAllUsers;
+import com.peterfranza.stackserver.ui.shared.FetchStackTraceList;
 
 public class ActionModule extends ActionHandlerModule {
 
@@ -26,6 +27,8 @@ public class ActionModule extends ActionHandlerModule {
 		
 		bindHandler(AddApplication.class, AddApplicationHandler.class);
 		bindHandler(FetchAllApplications.class, FetchAllApplicationsHandler.class);
+		
+		bindHandler(FetchStackTraceList.class, FetchStackTraceListHandler.class);
 		
 	}
 

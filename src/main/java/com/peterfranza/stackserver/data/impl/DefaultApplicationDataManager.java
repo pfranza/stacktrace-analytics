@@ -19,14 +19,20 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.google.inject.persist.Transactional;
 import com.peterfranza.stackserver.data.ApplicationDataManager;
+import com.peterfranza.stackserver.data.impl.util.ListingAgent.QueryModifier;
+import com.peterfranza.stackserver.data.impl.util.ListingAgentFactory;
 import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
 import com.peterfranza.stackserver.ui.shared.model.ApplicationModel_;
 import com.peterfranza.stackserver.ui.shared.model.StackTraceEntry;
+import com.peterfranza.stackserver.ui.shared.model.StackTraceEntry_;
 
 public class DefaultApplicationDataManager implements ApplicationDataManager {
 
 	@Inject
 	EntityManager entityManager;
+	
+	@Inject
+	ListingAgentFactory stackManager;
 	
 	@Override
 	public ApplicationModel getApplicationByApiKey(String apiKey) {
@@ -100,6 +106,22 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 	private SecureRandom random = new SecureRandom();
 	private String nextRandomToken() {
 	  return new BigInteger(256, random).toString(32);
+	}
+
+
+	@Override
+	public int getStackCount() {
+		return stackManager.create(StackTraceEntry.class).getCount();
+	}
+
+
+	@Override
+	public Collection<StackTraceEntry> getStackEntries(int start, int length) {
+		return stackManager.create(StackTraceEntry.class).getEntries(start, length, new QueryModifier<StackTraceEntry>(){
+			@Override
+			public void modifyQuery(CriteriaBuilder qb, CriteriaQuery<StackTraceEntry> c, Root<StackTraceEntry> p) {
+				c.orderBy(qb.desc(p.get(StackTraceEntry_.timeOccured)));
+			}});
 	}
 
 }
