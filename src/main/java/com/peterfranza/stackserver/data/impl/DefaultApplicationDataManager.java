@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import com.google.inject.persist.Transactional;
 import com.peterfranza.stackserver.data.ApplicationDataManager;
-import com.peterfranza.stackserver.data.model.ApplicationModel_;
 import com.peterfranza.stackserver.ui.shared.model.ApplicationModel;
+import com.peterfranza.stackserver.ui.shared.model.ApplicationModel_;
 
 public class DefaultApplicationDataManager implements ApplicationDataManager {
 

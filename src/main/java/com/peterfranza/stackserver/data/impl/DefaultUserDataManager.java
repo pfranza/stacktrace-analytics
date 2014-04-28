@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import com.google.inject.persist.Transactional;
 import com.peterfranza.stackserver.data.UserDataManager;
-import com.peterfranza.stackserver.data.model.User_;
 import com.peterfranza.stackserver.ui.shared.model.User;
+import com.peterfranza.stackserver.ui.shared.model.User_;
 
 public class DefaultUserDataManager implements UserDataManager {
 
