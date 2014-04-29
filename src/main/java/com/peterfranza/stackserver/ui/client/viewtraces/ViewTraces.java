@@ -22,6 +22,7 @@ import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.peterfranza.stackserver.ui.shared.FetchStackTraceList;
 import com.peterfranza.stackserver.ui.shared.StackTraceEntryCollectionResult;
+import com.peterfranza.stackserver.ui.shared.StackTraceEntryModel;
 import com.peterfranza.stackserver.ui.shared.model.StackTraceEntry;
 
 public class ViewTraces extends Composite {
@@ -32,12 +33,12 @@ public class ViewTraces extends Composite {
 	interface ViewTracesUiBinder extends UiBinder<Widget, ViewTraces> {
 	}
 	
-	@UiField(provided=true) CellTable<StackTraceEntry> table = new CellTable<StackTraceEntry>();
+	@UiField(provided=true) CellTable<StackTraceEntryModel> table = new CellTable<StackTraceEntryModel>();
 	@UiField(provided=true) SimplePager pager = new SimplePager(SimplePager.TextLocation.CENTER, true, true);
 
-	private AsyncDataProvider<StackTraceEntry> dataProvider = new AsyncDataProvider<StackTraceEntry>() {
+	private AsyncDataProvider<StackTraceEntryModel> dataProvider = new AsyncDataProvider<StackTraceEntryModel>() {
 	      @Override
-	      protected void onRangeChanged(HasData<StackTraceEntry> display) {
+	      protected void onRangeChanged(HasData<StackTraceEntryModel> display) {
 	        final Range range = display.getVisibleRange();
 	        updateRows(range);
 	      }
@@ -55,9 +56,9 @@ public class ViewTraces extends Composite {
 	protected void onAttach() {
 		super.onAttach();
 		
-		Column<StackTraceEntry, SafeHtml> nameColumn = new Column<StackTraceEntry, SafeHtml>(new SafeHtmlCell()) {			
+		Column<StackTraceEntryModel, SafeHtml> nameColumn = new Column<StackTraceEntryModel, SafeHtml>(new SafeHtmlCell()) {			
 			@Override
-			public SafeHtml getValue(StackTraceEntry object) {
+			public SafeHtml getValue(StackTraceEntryModel object) {
 				return SafeHtmlUtils.fromString(object.getTimeOccured().toString());
 			}
 		};

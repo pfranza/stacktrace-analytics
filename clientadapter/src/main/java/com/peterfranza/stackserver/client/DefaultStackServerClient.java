@@ -5,10 +5,13 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.core.MediaType;
+import javax.inject.Singleton;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.google.gson.Gson;
@@ -19,6 +22,7 @@ import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
 
+@Singleton
 public class DefaultStackServerClient implements StackServerClient {
 
 	private WebResource dataResource;
@@ -26,6 +30,16 @@ public class DefaultStackServerClient implements StackServerClient {
 	private String version;
 	private String hostSignature;
 
+	private ExecutorService pool = Executors.newCachedThreadPool(new ThreadFactory() {		
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(r);
+				t.setDaemon(true);
+				t.setName("DefaultStackServerClient");			
+			return t;
+		}
+	});
+	
 	@Inject
 	public DefaultStackServerClient(@Named("StackAnalyticsClient-APIKEY") String apiKey, 
 			@Named("StackAnalyticsClient-ConsumerSecret") String consumerSecret, 
@@ -33,7 +47,7 @@ public class DefaultStackServerClient implements StackServerClient {
 			@Named("StackAnalyticsClient-APIROOT") String apiRoot,
 			@Named("StackAnalyticsClient-VERSION") String version,
 			@Named("StackAnalyticsClient-HOST") String hostSignature) {
-		
+	
 		this.version = version;
 		this.hostSignature = hostSignature;
 		
@@ -59,11 +73,17 @@ public class DefaultStackServerClient implements StackServerClient {
 	}
 	
 	@Override
-	public void submit(Throwable t) {
-		MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-			formData.add("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
-			
-		dataResource.path("/submit").post(formData);
+	public void submit(final Throwable t) {
+		pool.submit(new Runnable() {
+			@Override
+			public void run() {
+				MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
+					formData.a2014-04-29 08:32:19.301000000
+dd("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
+					
+				dataResource.path("/submit").post(formData);
+			}
+		});
 	}
 	
 	private static TraceDefinition createDefinition(Throwable t, String version, String hostSignature) {
