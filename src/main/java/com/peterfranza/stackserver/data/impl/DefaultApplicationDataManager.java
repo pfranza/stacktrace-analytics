@@ -76,10 +76,11 @@ public class DefaultApplicationDataManager implements ApplicationDataManager {
 	@Override
 	public void appendTrace(ApplicationModel applicationModel,
 			String hostSignature, String data, String version,
-			StackTraceElement[] traceElements) {
+			String message, StackTraceElement[] traceElements) {
 		StackTraceEntry e = new StackTraceEntry();
 			e.setApplicationId(applicationModel.getId());
 			e.setRaw(data);
+			e.setMessage(message);
 			e.setTimeOccured(new Date());
 			e.setVersion(version);
 			e.setFingerprints(transformPrints(applicationModel, traceElements));

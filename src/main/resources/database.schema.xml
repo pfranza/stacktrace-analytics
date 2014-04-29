@@ -18,6 +18,7 @@
             <column name="applicationid" type="VARCHAR(255)"/>
             <column name="version" type="VARCHAR(255)"/>
             <column name="timeoccured" type="DATETIME"/>
+            <column name="message" type="VARCHAR(2048)"/>
             <column name="raw" type="VARCHAR(4096)"/>
         </createTable>
         

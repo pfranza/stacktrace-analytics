@@ -37,6 +37,8 @@ public class StackTraceEntry implements Serializable {
 	
 	private String raw;
 
+	private String message;
+
 	public Date getTimeOccured() {
 		return timeOccured;
 	}
@@ -79,6 +81,14 @@ public class StackTraceEntry implements Serializable {
 
 	public String getId() {
 		return id;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getMessage() {
+		return message;
 	}
 	
 	

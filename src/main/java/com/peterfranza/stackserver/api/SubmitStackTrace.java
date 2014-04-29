@@ -24,7 +24,7 @@ public class SubmitStackTrace {
 	public String submitNewStackTrace(@FormParam("data") String data) {
 		TraceDefinition d = new Gson().fromJson(data, TraceDefinition.class);
 		dataManager.get().appendTrace(application.get(), d.hostSignature,
-				d.data, d.version, d.traceElements);
+				d.data, d.version, d.message, d.traceElements);
 		return "OK";
 	}
 	
@@ -38,6 +38,7 @@ public class SubmitStackTrace {
 		public String hostSignature;
 		public String data;
 		public String version;
+		public String message;
 		public StackTraceElement[] traceElements;
 	}
 	

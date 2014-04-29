@@ -78,8 +78,7 @@ public class DefaultStackServerClient implements StackServerClient {
 			@Override
 			public void run() {
 				MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-					formData.a2014-04-29 08:32:19.301000000
-dd("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
+					formData.add("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
 					
 				dataResource.path("/submit").post(formData);
 			}
@@ -101,6 +100,7 @@ dd("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
 			d.version = version;
 			d.hostSignature = hostSignature;
 			d.data = errors.toString();
+			d.message = t.getMessage();
 			d.traceElements = elements.toArray(new StackTraceElement[0]);
 			
 		return d;
@@ -116,6 +116,7 @@ dd("data", new Gson().toJson(createDefinition(t, version, hostSignature)));
 		public String hostSignature;
 		public String data;
 		public String version;
+		public String message;
 		public StackTraceElement[] traceElements;
 	}
 	

@@ -1,6 +1,5 @@
 package com.peterfranza.stackserver.data;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import com.google.inject.ImplementedBy;
@@ -18,7 +17,7 @@ public interface ApplicationDataManager {
 	Collection<ApplicationModel> getAllApplications();
 
 	void appendTrace(ApplicationModel applicationModel, String hostSignature,
-			String data, String version, StackTraceElement[] traceElements);
+			String data, String version, String message, StackTraceElement[] traceElements);
 
 	int getStackCount();
 
